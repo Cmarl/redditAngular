@@ -1,0 +1,31 @@
+.row
+  .col-xs-8
+    table.table.table-responsive
+      thead
+        tr
+          th Photo
+          th Title
+          th Created On
+          th Tags
+          th Votes
+        tbody
+          tr(ng-repeat='post in posts track by $index')
+            td: a(href='{{post.image}}'): img.mediumThumbnail.thumbnail.img-responsive(ng-src='{{post.image}}')
+            td
+               h3: button.btn.btn-xl(ng-click='show(post)') {{post.title}}
+               h4 By: {{post.userName}}
+            td
+              h4 {{post.createdAt | date:'MM-dd-yyyy'}}
+              h4 comments: {{post.comments.length}}
+            td
+              .row(ng-repeat='tag in post.tags')
+                .col-xs-6
+                  p {{tag}}
+            td
+              h5 {{post.votes}}
+              .row
+                .col-xs-4
+                  button.btn.btn-xs.btn-info(ng-click='upVote(post)' ng-show='activeUser'): i.fa.fa-thumbs-up
+              .row
+                .col-xs-4
+                  button.btn.btn-xs.btn-info(ng-click='downVote(post)' ng-show='activeUser'): i.fa.fa-thumbs-down

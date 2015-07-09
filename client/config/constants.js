@@ -1,5 +1,5 @@
 'use strict';
 
-angular.module('poseidon')
-.constant('firebaseUrl', 'https://__________.firebaseio.com/')
-.constant('nodeUrl', 'http://localhost:8000');
+angular.module('reddit')
+.constant('firebaseUrl', 'https://redditt.firebaseio.com/')
+.constant('nodeUrl', 'http://ubuntu:8000');

@@ -1,0 +1,13 @@
+h4.text-center New Post
+.container
+  .row
+    .col-md-8.col-md-offset-2
+      label(for='title') Title
+      input#title.form-control(ng-model='post.title')
+      label(for='tags') Tags (comma separated)
+      input#tags.form-control(ng-model='post.tags' placeholder='beer,grunge,space...')
+      label(for='body') Title
+      textarea#body.form-control(ng-model='post.body' rows='10')
+      label(for='image') Image Url
+      input#image.form-control(ng-model='post.image')
+      button.btn.btn-info.form-control(ng-click='addPost(post)') Submit

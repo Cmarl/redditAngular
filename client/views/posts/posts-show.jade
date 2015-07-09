@@ -1,0 +1,33 @@
+.container#show
+  .row
+    .col-xs-12
+      h2.text-center: em {{post.title}}
+  .row
+    .col-xs-6
+      a(href='{{post.image}}'): img.text-center.largeThumbnail.thumbnail.img-responsive(ng-src='{{post.image}}')
+      h4 Created On: {{post.createdAt | date:'MM-dd-yyyy'}}
+      h4 Tags: {{tag}}
+      h4 Votes: {{post.votes}}
+      button.btn.btn-xs.btn-info(ng-click='upVote(post)' ng-show='activeUser'): i.fa.fa-thumbs-up
+      button.btn.btn-xs.btn-info(ng-click='downVote(post)' ng-show='activeUser'): i.fa.fa-thumbs-down
+    .col-xs-6
+      h5 {{post.body}}
+  .row
+    .col-xs-12
+      textarea(ng-model='comment.body' ng-show='activeUser' rows='4' cols='110')
+      button.btn.btn-xs.btn-info(ng-show='activeUser' ng-click='addComment(comment, post)') Add Comment
+.container#show
+  .row
+    .col-xs-12
+      h2.text-center: em Comments
+      table.table.table-striped
+        thead
+          tr
+            th Name
+            th Comment
+            th Votes
+        tbody
+          tr(ng-repeat='comment in post.comments')
+            td {{comment.userName || "anonymous"}}
+            td {{comment.body}}
+            td {{comment.votes}}

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('poseidon')
+angular.module('reddit')
 .factory('User', function($rootScope, $http, nodeUrl){
 
   function User(){
@@ -8,6 +8,15 @@ angular.module('poseidon')
 
   User.initialize = function(){
     return $http.post(nodeUrl + '/users');
+  };
+
+  User.getProfile = function(){
+    return $http.get(nodeUrl + '/users/' + $rootScope.activeUser.mongoId);
+  };
+
+
+  User.update = function(user){
+    return $http.put(nodeUrl + '/users/' + $rootScope.activeUser.mongoId, user);
   };
 
   User.oauth = function(provider){
