@@ -38,4 +38,9 @@ angular.module('reddit')
         $window.swal({title: 'Aww Yeaa', text: 'Profile Updated!', type: 'success', timer: 1000, showConfirmButton: true});
     });
   };
+
+  $scope.show = function(post){
+    $state.go('posts.show',{postId: post._id});
+};
+
 });

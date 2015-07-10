@@ -2,6 +2,7 @@
 
 angular.module('reddit')
 .controller('NewPostCtrl', function($rootScope, $scope, Post, $state){
+  $scope.editing = false;
 
   $scope.addPost = function(post){
     post.userId = $scope.activeUser.mongoId;

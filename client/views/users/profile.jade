@@ -12,24 +12,26 @@ h3.text-center Profile
     .col-xs-12.col-md-6
       h4 Current Img
       img.img-responsive.thumbnail#profileImg(ng-src='{{user.image}}')
-h4.text-center Posts
-.row
-  .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
-    .row
-      .container-fluid.listedPost(ng-repeat='post in posts track by $index')
-        .col-sm-3.col-xs-12
-          a(href='{{post.image}}'): img.center-this.thumbnail.img-responsive(ng-src='{{post.image}}')
-        .col-sm-3.col-xs-4
-          h3#pointer: a(ng-click='show(post)') {{post.title}}
-          h4 By: {{post.userName}}
-          h5 {{post.createdAt | date:'MM-dd-yyyy'}}
-        .col-sm-3.col-xs-4
-          h5.text-center(ng-if='post.comments.length > 1') {{post.comments.length}} comments
-          h5.text-center(ng-if='post.comments.length === 1') {{post.comments.length}} comment
-          h5.text-center(ng-if='!post.comments.length') No comments
-          h5.text-center Score: {{post.votes}}
-          button.btn.btn-xs.btn-warn(ng-click='edit(post)') Edit
-          button.btn.btn-xs.btn-danger(ng-click='destroy(post)') Delete
-        .col-sm-3.col-xs-4
-          h5 Tags
-          p: em(ng-repeat='tag in post.tags') {{tag}} &nbsp;
+h3.text-center Posts
+.container
+  .row
+    .col-xs-12.col-sm-4.userPost(ng-repeat='post in posts track by $index')
+      .row
+        .col-xs-12
+          button.btn.btn-xs.btn-warn(ng-click='edit(post)'): i.fa.fa-pencil
+          button.btn.btn-xs.btn-danger(ng-click='destroy(post)'): i.fa.fa-trash-o
+          h5 {{post.votes}} Votes
+        .col-xs-12
+          h4: a.pointer.postTitle(ng-click='show(post)') {{post.title}}
+      .row
+        .col-xs-12
+          a(href='{{post.image}}'): img.center-this.postImg.thumbnail.img-responsive(ng-src='{{post.image}}')
+          p: em {{post.createdAt | date:'longDate'}}
+      .row
+        .col-xs-12
+          h5(ng-if='post.comments.length > 1') {{post.comments.length}} comments
+          h5(ng-if='post.comments.length === 1') {{post.comments.length}} comment
+          h5(ng-if='!post.comments.length') No comments
+        .col-xs-12
+          h5 Tags:
+          p: em {{post.tags.join(', ')}}

@@ -1,33 +1,36 @@
-.container#show
+.container
   .row
     .col-xs-12
-      h2.text-center: em {{post.title}}
+      h2 {{post.title}}
   .row
-    .col-xs-6
+    .col-sm-6.col-xs-12
       a(href='{{post.image}}'): img.text-center.thumbnail.img-responsive(ng-src='{{post.image}}')
-      h4 Created On: {{post.createdAt | date:'MM-dd-yyyy'}}
-      h4 Tags: {{tag}}
+      h4 {{post.userName}} -- {{post.createdAt | date:'longDate'}}
+      h4 Tags:
+      p {{post.tags.join(', ')}}
       h4 Votes: {{post.votes}}
-      button.btn.btn-xs.btn-info(ng-click='upVote(post)' ng-show='activeUser'): i.fa.fa-thumbs-up
-      button.btn.btn-xs.btn-info(ng-click='downVote(post)' ng-show='activeUser'): i.fa.fa-thumbs-down
-    .col-xs-6
+      i.fa.fa-thumbs-up.pointer.thumb(ng-click='upVote(post)' ng-show='activeUser')
+      i.fa.fa-thumbs-down.pointer.thumb(ng-click='downVote(post)' ng-show='activeUser')
+    .col-sm-6.col-xs-12
       h5 {{post.body}}
   .row
     .col-xs-12
-      textarea(ng-model='comment.body' ng-show='activeUser' rows='4' cols='110')
+      textarea#commentBox(ng-model='comment.body' ng-show='activeUser' rows='4')
       button.btn.btn-xs.btn-info(ng-show='activeUser' ng-click='addComment(comment, post)') Add Comment
-.container#show
   .row
-    .col-xs-12
-      h2.text-center: em Comments
-      table.table.table-striped
-        thead
-          tr
-            th Name
-            th Comment
-            th Votes
-        tbody
-          tr(ng-repeat='comment in post.comments')
-            td {{comment.userName || "anonymous"}}
-            td {{comment.body}}
-            td {{comment.votes}}
+    .col-xs-12(ng-if='post.comments.length')
+      h3 Comments
+      .container(ng-repeat='comment in post.comments')
+        .row
+          .col-xs-3
+            img.thumbnail.userThumb(ng-src='{{comment.userImg || "assets/anonymous.gif"}}')
+          .col-xs-9
+            h4 {{comment.userName || "anonymous"}}
+            p {{comment.body}}
+            .row
+              .col-xs-1
+                i.fa.fa-thumbs-down.thumb.pointer(ng-click='downVoteComment(comment)' ng-show='activeUser')
+              .col-xs-1
+                p: em {{comment.votes}}
+              .col-xs-1
+                i.fa.fa-thumbs-up.thumb.pointer(ng-click='upVoteComment(comment)' ng-show='activeUser')

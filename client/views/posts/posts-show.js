@@ -5,6 +5,7 @@ angular.module('reddit')
   Post.getPosts(null, $state.params.postId)
   .then(function(response){
     $scope.post = response.data;
+    $scope.post.tags = $scope.post.tags.split(',');
   });
 
   $scope.upVote = function(post){
