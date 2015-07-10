@@ -2,42 +2,34 @@ h3.text-center Profile
 .container
   .row
     .col-xs-12.col-md-6
-      h4 Image Url
-      input.form-control(type='url' ng-model='user.image')
       h4 Email Address
       input.form-control(type='text' ng-model='user.email')
       h4 Handle
       input.form-control(type='text' ng-model='user.handle')
+      h4 Image Url
+      input.form-control(type='url' ng-model='user.image')
       button.btn.btn-xs.btn-info.form-control(ng-click='update(user)') Update
     .col-xs-12.col-md-6
       h4 Current Img
       img.img-responsive.thumbnail#profileImg(ng-src='{{user.image}}')
-  .row
-    .col-xs-10.col-xs-offset-1
-      h4.text-center Your Posts
-      table.table.table-responsive
-        thead
-          tr
-            th Photo
-            th Title
-            th Created On
-            th Tags
-            th Votes
-        tbody
-          tr(ng-repeat='post in posts')
-            td: img.smallThumbnail.thumbnail.img-responsive(ng-src='{{post.image}}')
-            td
-              .row
-                .col-xs-6
-                  p {{post.title}}
-              .row
-                .col-xs-2
-                  button.btn.btn-xs.btn-info(ng-click='edit(post)') Edit
-                .col-xs-2
-                  button.btn.btn-xs.btn-danger(ng-click='destroy(post)') Delete
-            td {{post.createdAt | date:'MM-dd-yyyy'}}
-            td
-              .row(ng-repeat='tag in post.tags')
-                .col-xs-6
-                  p {{tag}}
-            td {{post.votes}}
+h4.text-center Posts
+.row
+  .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
+    .row
+      .container-fluid.listedPost(ng-repeat='post in posts track by $index')
+        .col-sm-3.col-xs-12
+          a(href='{{post.image}}'): img.center-this.thumbnail.img-responsive(ng-src='{{post.image}}')
+        .col-sm-3.col-xs-4
+          h3#pointer: a(ng-click='show(post)') {{post.title}}
+          h4 By: {{post.userName}}
+          h5 {{post.createdAt | date:'MM-dd-yyyy'}}
+        .col-sm-3.col-xs-4
+          h5.text-center(ng-if='post.comments.length > 1') {{post.comments.length}} comments
+          h5.text-center(ng-if='post.comments.length === 1') {{post.comments.length}} comment
+          h5.text-center(ng-if='!post.comments.length') No comments
+          h5.text-center Score: {{post.votes}}
+          button.btn.btn-xs.btn-warn(ng-click='edit(post)') Edit
+          button.btn.btn-xs.btn-danger(ng-click='destroy(post)') Delete
+        .col-sm-3.col-xs-4
+          h5 Tags
+          p: em(ng-repeat='tag in post.tags') {{tag}} &nbsp;

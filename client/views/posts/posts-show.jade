@@ -4,7 +4,7 @@
       h2.text-center: em {{post.title}}
   .row
     .col-xs-6
-      a(href='{{post.image}}'): img.text-center.largeThumbnail.thumbnail.img-responsive(ng-src='{{post.image}}')
+      a(href='{{post.image}}'): img.text-center.thumbnail.img-responsive(ng-src='{{post.image}}')
       h4 Created On: {{post.createdAt | date:'MM-dd-yyyy'}}
       h4 Tags: {{tag}}
       h4 Votes: {{post.votes}}

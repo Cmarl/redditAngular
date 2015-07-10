@@ -33,7 +33,7 @@ angular.module('reddit')
       case 'password':
         return data.password.email;
       case 'twitter':
-        return data.twitter.username;
+        return data.twitter.displayName;
       case 'google':
         return data.google.displayName;
       case 'facebook':
